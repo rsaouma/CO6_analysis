@@ -4,19 +4,21 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sb
 import QuantLib as ql
+#
+maturity_date = ql.Date(15, 1, 2021)
+spot_price = 44.20
+strike_price = 35
+volatility = 0.48 # the historical vols or implied vols
+dividend_rate =  0.00
+option_type = ql.Option.Put
 
-maturity_date = ql.Date(15, 1, 2016)
-spot_price = 127.62
-strike_price = 130
-volatility = 0.20 # the historical vols or implied vols
-dividend_rate =  0.0163
-option_type = ql.Option.Call
 
-risk_free_rate = 0.001
+risk_free_rate = 0.00
 day_count = ql.Actual365Fixed()
 calendar = ql.UnitedStates()
 
-calculation_date = ql.Date(8, 5, 2015)
+calculation_date = ql.Date(6, 9, 2020)
+
 ql.Settings.instance().evaluationDate = calculation_date
 
 
@@ -78,6 +80,7 @@ am_prices = [binomial_price(american_option, bsm_process, step) for step in step
 # theoretican European option price
 european_option.setPricingEngine(ql.AnalyticEuropeanEngine(bsm_process))
 bs_price = european_option.NPV()
+
 
 plt.plot(steps, eu_prices, label="European Option", lw=2, alpha=0.6)
 plt.plot(steps, am_prices, label="American Option", lw=2, alpha=0.6)

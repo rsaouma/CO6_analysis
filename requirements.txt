@@ -4,3 +4,4 @@ matplotlib
 seaborn
 QuantLib-Python
 eikon
+ipywidgets
