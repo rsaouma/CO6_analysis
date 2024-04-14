@@ -1,6 +1,12 @@
 import QuantLib as ql
+import datetime
 
-
+def setDayToToday():
+	today_i = datetime.date.today()
+	today = ql.Date(today_i.day, today_i.month, today_i.year)
+	ql.Settings.instance().evaluationDate = today
+	print("Today's date:", today)
+	return today
 
 
 def getProcess(interest_rate, dividend_rate, underlying_price, volatility_rate):
@@ -71,6 +77,13 @@ def getAmericanOption(valuation_date, expiry_date, put_or_call, strike_price, pr
 def getAmericanPrice(option):
 
     return option.NPV()
+
+
+
+def getEuropeanOptionPrice(opt_type,u,s,expiry,sigma,r):
+	opt_type = (ql.Option.Call if opt_type == "Call" else ql.Option.Put)
+	return opt_type
+
 
 
 
